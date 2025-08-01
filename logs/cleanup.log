@@ -240,3 +240,18 @@ Skipped (preserved): 2
 Total checked: 3
 Log file: logs/cleanup.log
 
+2025-08-01 21:09:48,697 INFO: GitHub path: https://github.com/nikitakoselev
+2025-08-01 21:09:48,700 INFO: Total repositories found: 3
+2025-08-01 21:09:48,701 INFO: Preserved patterns: 4
+2025-08-01 21:09:53,199 INFO: Skipped (preserved): https://github.com/nikitakoselev/books-to-read
+2025-08-01 21:09:53,203 INFO: Skipped (preserved): https://github.com/nikitakoselev/EarningMoneyInOpenSource
+2025-08-01 21:09:59,066 INFO: 
+--- Cleanup Summary ---
+Archived repositories: 0
+Made private: 0
+Deleted repositories: 0
+Skipped by user: 0
+Skipped (preserved): 2
+Total checked: 3
+Log file: logs/cleanup.log
+

@@ -8,7 +8,7 @@ from github_api import (
     delete_repo, archive_repo, make_private_repo,
     get_authenticated_username, get_repos, get_readme_snippet
 )
-from filters import is_preserved, load_preserve_list, add_to_preserve_list, save_preserve_list
+from filters import add_to_preserve_list, is_preserved, load_preserve_list, save_preserve_list
 
 LOG_DIR = 'logs'
 LOG_FILE = f'{LOG_DIR}/cleanup.log'
@@ -114,6 +114,7 @@ def batch_process_from_csv(csv_path, archive=False, delete=False, make_private=F
         ]
     )
     GITHUB_USERNAME = get_authenticated_username()
+    preserved = load_preserve_list()
     to_process = []
     with open(csv_path, newline='', encoding='utf-8') as csvfile:
         reader = csv.DictReader(csvfile)
@@ -134,7 +135,12 @@ def batch_process_from_csv(csv_path, archive=False, delete=False, make_private=F
     privatized = []
     deleted = []
     failed = []
+    preserved_skipped = []
     for name in to_process:
+        if is_preserved(name, preserved):
+            print(f"⏩ Skipped {name} (preserved by pattern or name)")
+            preserved_skipped.append(name)
+            continue
         repo_url = f"https://github.com/{GITHUB_USERNAME}/{name}"
         print(f"{action.capitalize()}ing {repo_url} ...")
         if archive:
@@ -158,6 +164,7 @@ def batch_process_from_csv(csv_path, archive=False, delete=False, make_private=F
         f"Archived: {len(archived)}\n"
         f"Made private: {len(privatized)}\n"
         f"Deleted: {len(deleted)}\n"
+        f"Skipped (preserved): {len(preserved_skipped)}\n"
         f"Failed: {len(failed)}\n"
         f"Log file: {LOG_FILE}\n"
     )
@@ -174,6 +181,7 @@ def process_repos_by_path(paths_or_patterns, archive=True, delete=False, make_pr
         ]
     )
     GITHUB_USERNAME = get_authenticated_username()
+    preserved = load_preserve_list()
     all_repos = get_repos(GITHUB_USERNAME)
     matched = set()
     for pattern in paths_or_patterns:
@@ -196,7 +204,12 @@ def process_repos_by_path(paths_or_patterns, archive=True, delete=False, make_pr
         logging.info(f"{action.capitalize()} aborted by user.")
         return
 
+    preserved_skipped = []
     for repo in matched:
+        if is_preserved(repo['name'], preserved):
+            print(f"⏩ Skipped {repo['name']} (preserved by pattern or name)")
+            preserved_skipped.append(repo['name'])
+            continue
         repo_url = repo['html_url']
         print(f"{action.capitalize()}ing {repo_url} ...")
         if archive:
