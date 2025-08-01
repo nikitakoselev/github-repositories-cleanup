@@ -1,0 +1,160 @@
+2025-07-31 22:47:55,485 INFO: GitHub path: https://github.com/your-username
+2025-07-31 22:47:55,497 INFO: Total repositories found: 406
+2025-07-31 22:47:55,499 INFO: Preserved patterns: 1
+2025-07-31 22:48:12,169 ERROR: Failed to delete: gcp-book-skillsmapper
+2025-07-31 22:48:15,787 ERROR: Failed to delete: metrohacks-hackathon
+2025-07-31 22:48:18,613 ERROR: Failed to delete: 60-Days-Of-DevOps
+2025-07-31 22:48:21,360 ERROR: Failed to delete: aiia-sample
+2025-07-31 22:49:25,863 ERROR: Failed to delete: airport-robot
+2025-07-31 22:50:07,843 INFO: Skipped (user): Alpha2Sdk
+2025-07-31 22:50:13,501 INFO: Skipped (user): Amass
+2025-07-31 22:59:48,126 INFO: GitHub path: https://github.com/your-username
+2025-07-31 22:59:48,126 INFO: Total repositories found: 406
+2025-07-31 22:59:48,126 INFO: Preserved patterns: 3
+2025-07-31 23:01:23,651 ERROR: Failed to delete: https://github.com/your-username/gcp-book-skillsmapper (404) {"message":"Not Found","documentation_url":"https://docs.github.com/rest/repos/repos#delete-a-repository","status":"404"}
+2025-07-31 23:01:57,566 INFO: Aborted by user during deletion.
+2025-07-31 23:01:57,566 INFO: 
+--- Cleanup Summary ---
+Deleted repositories: 0
+Skipped by user: 1
+Skipped (preserved): 0
+Total checked: 406
+Log file: logs\cleanup.log
+
+2025-07-31 23:02:08,075 INFO: GitHub path: https://github.com/nikitakoselev
+2025-07-31 23:02:08,075 INFO: Total repositories found: 406
+2025-07-31 23:02:08,091 INFO: Preserved patterns: 3
+2025-07-31 23:02:15,293 ERROR: Failed to delete: https://github.com/nikitakoselev/gcp-book-skillsmapper (404) {"message":"Not Found","documentation_url":"https://docs.github.com/rest/repos/repos#delete-a-repository","status":"404"}
+2025-07-31 23:06:16,295 INFO: Aborted by user during deletion.
+2025-07-31 23:06:16,297 INFO: 
+--- Cleanup Summary ---
+Deleted repositories: 0
+Skipped by user: 1
+Skipped (preserved): 0
+Total checked: 406
+Log file: logs\cleanup.log
+
+2025-07-31 23:11:17,365 INFO: GitHub path: https://github.com/nikitakoselev
+2025-07-31 23:11:17,368 INFO: Total repositories found: 406
+2025-07-31 23:11:17,369 INFO: Preserved patterns: 3
+2025-07-31 23:12:14,299 INFO: Aborted by user before deletion.
+2025-07-31 23:14:11,971 INFO: GitHub path: https://github.com/nikitakoselev
+2025-07-31 23:14:11,971 INFO: Total repositories found: 67
+2025-07-31 23:14:11,971 INFO: Preserved patterns: 3
+2025-07-31 23:14:24,678 INFO: Aborted by user before deletion.
+2025-07-31 23:16:22,208 INFO: GitHub path: https://github.com/nikitakoselev
+2025-07-31 23:16:22,215 INFO: Total repositories found: 325
+2025-07-31 23:16:22,215 INFO: Preserved patterns: 3
+2025-07-31 23:16:35,485 INFO: Deleted: https://github.com/nikitakoselev/60-Days-Of-DevOps
+2025-07-31 23:16:39,503 INFO: Deleted: https://github.com/nikitakoselev/aiia-sample
+2025-07-31 23:16:43,296 INFO: Deleted: https://github.com/nikitakoselev/airport-robot
+2025-07-31 23:16:43,305 INFO: Skipped (preserved): https://github.com/nikitakoselev/Alpha2Sdk
+2025-07-31 23:16:43,308 INFO: Skipped (preserved): https://github.com/nikitakoselev/Amass
+2025-07-31 23:16:46,133 INFO: Deleted: https://github.com/nikitakoselev/amazon-ads-advertiser-audience-normalization-sdk-py
+2025-07-31 23:17:23,996 INFO: Deleted: https://github.com/nikitakoselev/Angular-GettingStarted-1
+2025-07-31 23:17:27,199 INFO: Deleted: https://github.com/nikitakoselev/angular-hello-world
+2025-07-31 23:20:17,484 INFO: Deleted: https://github.com/nikitakoselev/angular-mkb7jh
+2025-07-31 23:20:20,435 INFO: Deleted: https://github.com/nikitakoselev/angular-tic-tac-toe
+2025-07-31 23:20:26,638 INFO: Deleted: https://github.com/nikitakoselev/Apollo-11
+2025-07-31 23:20:28,910 INFO: Deleted: https://github.com/nikitakoselev/appium-inspector
+2025-07-31 23:20:32,584 INFO: Deleted: https://github.com/nikitakoselev/AppiumParallel
+2025-07-31 23:20:35,891 INFO: Deleted: https://github.com/nikitakoselev/architecture-samples
+2025-07-31 23:20:38,950 INFO: Deleted: https://github.com/nikitakoselev/ardupilot
+2025-07-31 23:20:41,281 INFO: Deleted: https://github.com/nikitakoselev/argo-cd
+2025-07-31 23:20:50,187 INFO: Deleted: https://github.com/nikitakoselev/armada
+2025-07-31 23:20:53,007 INFO: Deleted: https://github.com/nikitakoselev/aspnetcore
+2025-07-31 23:20:55,843 INFO: Deleted: https://github.com/nikitakoselev/assembly-line
+2025-07-31 23:21:09,942 INFO: Deleted: https://github.com/nikitakoselev/atzmondor
+2025-07-31 23:21:20,046 INFO: Skipped (user): https://github.com/nikitakoselev/automation
+2025-07-31 23:21:28,778 INFO: Deleted: https://github.com/nikitakoselev/awesome-apm
+2025-07-31 23:21:32,083 INFO: Deleted: https://github.com/nikitakoselev/awesome-git
+2025-07-31 23:21:35,521 INFO: Deleted: https://github.com/nikitakoselev/backend-challenge
+2025-07-31 23:21:38,274 INFO: Deleted: https://github.com/nikitakoselev/backstage
+2025-07-31 23:21:41,635 INFO: Deleted: https://github.com/nikitakoselev/bank-kata-outsidein-screencast
+2025-07-31 23:21:44,718 INFO: Deleted: https://github.com/nikitakoselev/binance-java-api
+2025-07-31 23:21:49,398 INFO: Deleted: https://github.com/nikitakoselev/blather
+2025-07-31 23:21:55,100 INFO: Deleted: https://github.com/nikitakoselev/booking-up-for-beauty
+2025-07-31 23:21:57,048 INFO: Deleted: https://github.com/nikitakoselev/bookmark-service
+2025-07-31 23:21:59,971 INFO: Skipped (user): https://github.com/nikitakoselev/books-to-read
+2025-07-31 23:22:03,821 INFO: Deleted: https://github.com/nikitakoselev/can-utils
+2025-07-31 23:22:06,488 INFO: Deleted: https://github.com/nikitakoselev/candidate-pack
+2025-07-31 23:22:08,833 INFO: Deleted: https://github.com/nikitakoselev/Carbon_CI_Pipeline_Tooling
+2025-07-31 23:22:11,407 INFO: Deleted: https://github.com/nikitakoselev/census
+2025-07-31 23:22:13,905 INFO: Deleted: https://github.com/nikitakoselev/Charmainpayne
+2025-07-31 23:22:16,455 INFO: Deleted: https://github.com/nikitakoselev/cherrybomb
+2025-07-31 23:22:18,454 INFO: Deleted: https://github.com/nikitakoselev/chessboard
+2025-07-31 23:22:20,321 INFO: Deleted: https://github.com/nikitakoselev/circleci-cli
+2025-07-31 23:22:22,440 INFO: Deleted: https://github.com/nikitakoselev/civo-opencontrolplane
+2025-07-31 23:22:24,235 INFO: Deleted: https://github.com/nikitakoselev/clean-architecture-demo
+2025-07-31 23:22:26,814 INFO: Deleted: https://github.com/nikitakoselev/clean-architecture-in-asp-net-mvc-5
+2025-07-31 23:22:29,381 INFO: Deleted: https://github.com/nikitakoselev/clearlydefined
+2025-07-31 23:22:33,101 INFO: Deleted: https://github.com/nikitakoselev/cli-1
+2025-07-31 23:22:35,012 INFO: Deleted: https://github.com/nikitakoselev/cli-2
+2025-07-31 23:22:37,891 INFO: Deleted: https://github.com/nikitakoselev/client-encryption-java
+2025-07-31 23:22:40,013 INFO: Deleted: https://github.com/nikitakoselev/client-managed-keys
+2025-07-31 23:22:41,979 INFO: Deleted: https://github.com/nikitakoselev/climate-change-data
+2025-07-31 23:22:44,090 INFO: Deleted: https://github.com/nikitakoselev/cloudpirates.github.io
+2025-07-31 23:22:45,982 INFO: Deleted: https://github.com/nikitakoselev/cockroach
+2025-07-31 23:22:48,303 INFO: Deleted: https://github.com/nikitakoselev/code-test
+2025-07-31 23:22:50,200 INFO: Deleted: https://github.com/nikitakoselev/codetests
+2025-07-31 23:22:52,248 INFO: Deleted: https://github.com/nikitakoselev/codewars.com
+2025-07-31 23:22:53,827 INFO: Deleted: https://github.com/nikitakoselev/code_snippets
+2025-07-31 23:22:55,389 INFO: Deleted: https://github.com/nikitakoselev/commerce-web-android
+2025-07-31 23:22:57,011 INFO: Deleted: https://github.com/nikitakoselev/commitizen-go
+2025-07-31 23:22:58,803 INFO: Deleted: https://github.com/nikitakoselev/community
+2025-07-31 23:23:01,428 INFO: Deleted: https://github.com/nikitakoselev/CommunityWriterPrograms
+2025-07-31 23:23:03,950 INFO: Deleted: https://github.com/nikitakoselev/copilot-docs
+2025-07-31 23:23:06,593 INFO: Deleted: https://github.com/nikitakoselev/core
+2025-07-31 23:23:08,547 INFO: Deleted: https://github.com/nikitakoselev/coremltools
+2025-07-31 23:23:10,560 INFO: Deleted: https://github.com/nikitakoselev/course-discovery
+2025-07-31 23:23:13,472 INFO: Deleted: https://github.com/nikitakoselev/coursera
+2025-07-31 23:23:15,409 INFO: Deleted: https://github.com/nikitakoselev/cpip
+2025-07-31 23:23:17,619 INFO: Deleted: https://github.com/nikitakoselev/credentials-themes
+2025-07-31 23:23:22,235 INFO: Deleted: https://github.com/nikitakoselev/CrimeStats
+2025-07-31 23:23:24,207 INFO: Deleted: https://github.com/nikitakoselev/cucumber-js
+2025-07-31 23:23:26,037 INFO: Deleted: https://github.com/nikitakoselev/cucumber-junit5-example
+2025-07-31 23:23:27,667 INFO: Deleted: https://github.com/nikitakoselev/cucumber-spring-integration
+2025-07-31 23:23:29,592 INFO: Deleted: https://github.com/nikitakoselev/daedalus
+2025-07-31 23:23:31,501 INFO: Deleted: https://github.com/nikitakoselev/dbeaver
+2025-07-31 23:23:33,270 INFO: Deleted: https://github.com/nikitakoselev/ddev-platformsh
+2025-07-31 23:23:35,322 INFO: Deleted: https://github.com/nikitakoselev/Decode
+2025-07-31 23:23:38,426 INFO: Deleted: https://github.com/nikitakoselev/deploy_cat
+2025-07-31 23:23:41,166 INFO: Deleted: https://github.com/nikitakoselev/dev
+2025-07-31 23:23:44,987 INFO: Deleted: https://github.com/nikitakoselev/developer-roadmap
+2025-07-31 23:23:46,716 INFO: Deleted: https://github.com/nikitakoselev/devops-mutualization
+2025-07-31 23:23:48,408 INFO: Deleted: https://github.com/nikitakoselev/DevRel
+2025-07-31 23:23:50,353 INFO: Deleted: https://github.com/nikitakoselev/devtron
+2025-07-31 23:23:52,441 INFO: Deleted: https://github.com/nikitakoselev/DFESW12_Final_Project
+2025-07-31 23:23:54,295 INFO: Deleted: https://github.com/nikitakoselev/directus
+2025-07-31 23:23:56,165 INFO: Deleted: https://github.com/nikitakoselev/discovery-components
+2025-07-31 23:23:57,832 INFO: Deleted: https://github.com/nikitakoselev/django
+2025-07-31 23:23:59,582 INFO: Deleted: https://github.com/nikitakoselev/do-not-answer
+2025-07-31 23:24:04,237 INFO: Deleted: https://github.com/nikitakoselev/docs
+2025-07-31 23:24:06,480 INFO: Deleted: https://github.com/nikitakoselev/docs-1
+2025-07-31 23:24:08,576 INFO: Deleted: https://github.com/nikitakoselev/documentation
+2025-07-31 23:24:11,020 INFO: Deleted: https://github.com/nikitakoselev/driftctl
+2025-07-31 23:24:18,617 INFO: Skipped (user): https://github.com/nikitakoselev/EarningMoneyInOpenSource
+2025-07-31 23:24:22,057 INFO: Deleted: https://github.com/nikitakoselev/edx-platform
+2025-07-31 23:24:24,934 INFO: Deleted: https://github.com/nikitakoselev/egnn-pytorch
+2025-07-31 23:24:26,941 INFO: Deleted: https://github.com/nikitakoselev/elasticsearch
+2025-07-31 23:24:39,361 INFO: Deleted: https://github.com/nikitakoselev/election-day
+2025-07-31 23:24:41,889 INFO: Deleted: https://github.com/nikitakoselev/elons-toys
+2025-07-31 23:24:43,967 INFO: Deleted: https://github.com/nikitakoselev/exercism-go-blackjack
+2025-07-31 23:24:46,881 INFO: Deleted: https://github.com/nikitakoselev/expenses
+2025-07-31 23:24:49,209 INFO: Deleted: https://github.com/nikitakoselev/f1
+2025-07-31 23:24:51,017 INFO: Deleted: https://github.com/nikitakoselev/fastlane
+2025-07-31 23:24:52,816 INFO: Deleted: https://github.com/nikitakoselev/fastnetmon
+2025-07-31 23:24:54,702 INFO: Deleted: https://github.com/nikitakoselev/fasttrackml
+2025-07-31 23:24:56,433 INFO: Deleted: https://github.com/nikitakoselev/filter-paper
+2025-07-31 23:24:58,347 INFO: Deleted: https://github.com/nikitakoselev/financial-objects
+2025-07-31 23:25:00,118 INFO: Deleted: https://github.com/nikitakoselev/first-contributions
+2025-07-31 23:25:02,369 INFO: Deleted: https://github.com/nikitakoselev/flyway
+2025-07-31 23:25:08,950 INFO: Aborted by user during deletion.
+2025-07-31 23:25:08,950 INFO: 
+--- Cleanup Summary ---
+Deleted repositories: 99
+Skipped by user: 3
+Skipped (preserved): 2
+Total checked: 325
+Log file: logs\cleanup.log
+
