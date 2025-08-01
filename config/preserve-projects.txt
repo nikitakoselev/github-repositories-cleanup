@@ -1,6 +1,4 @@
-Alpha2Sdk
-Amass
 EarningMoneyInOpenSource
-automation
+^test-.*
 books-to-read
 github-repositories-cleanup

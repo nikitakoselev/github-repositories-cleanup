@@ -1,118 +1,35 @@
+import argparse
+import csv
 import logging
-from datetime import datetime
 import os
-import requests
-import base64
 import re
-from dotenv import load_dotenv
-
-# Load token and username from config/delete-token.env
-load_dotenv(dotenv_path='config/delete-token.env')
-GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
-
-if not GITHUB_TOKEN:
-    print("❌ Missing credentials. Make sure config/delete-token.env is set.")
-    exit(1)
-
-API_URL = 'https://api.github.com'
-HEADERS = {'Authorization': f'token {GITHUB_TOKEN}'}
+from export import export_repos_csv
+from github_api import (
+    delete_repo, archive_repo, make_private_repo,
+    get_authenticated_username, get_repos, get_readme_snippet
+)
+from filters import is_preserved, load_preserve_list, add_to_preserve_list, save_preserve_list
 
 LOG_DIR = 'logs'
-LOG_FILE = os.path.join(LOG_DIR, 'cleanup.log')
-os.makedirs(LOG_DIR, exist_ok=True)
+LOG_FILE = f'{LOG_DIR}/cleanup.log'
 
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s %(levelname)s: %(message)s',
-    handlers=[
-        logging.FileHandler(LOG_FILE, encoding='utf-8'),
-        logging.StreamHandler()
-    ]
-)
+def cleanup_repos(archive=True, delete=False, make_private=False):
+    os.makedirs(LOG_DIR, exist_ok=True)
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s %(levelname)s: %(message)s',
+        handlers=[
+            logging.FileHandler(LOG_FILE, encoding='utf-8'),
+            logging.StreamHandler()
+        ]
+    )
 
-def get_authenticated_username():
-    url = f"{API_URL}/user"
-    response = requests.get(url, headers=HEADERS)
-    if response.status_code == 200:
-        return response.json().get("login")
-    else:
-        print("❌ Failed to fetch authenticated username.")
-        exit(1)
-
-GITHUB_USERNAME = get_authenticated_username()
-
-def get_repos():
-    repos = []
-    page = 1
-    while True:
-        url = f'{API_URL}/user/repos?per_page=100&page={page}'
-        response = requests.get(url, headers=HEADERS)
-        if response.status_code != 200:
-            print(f"❌ Failed to fetch repositories: {response.status_code}")
-            break
-        data = response.json()
-        if not data:
-            break
-        # Only include repos owned by the authenticated user and not forks
-        repos.extend([repo for repo in data if repo['owner']['login'] == GITHUB_USERNAME])
-        page += 1
-    return repos
-
-def get_readme_snippet(owner, repo):
-    url = f'{API_URL}/repos/{owner}/{repo}/readme'
-    response = requests.get(url, headers=HEADERS)
-    if response.status_code == 200:
-        content = response.json().get('content', '')
-        decoded = base64.b64decode(content).decode('utf-8', errors='ignore')
-        return '\n'.join(decoded.strip().split('\n')[:10])
-    return '(No README or unable to fetch)'
-
-def delete_repo(owner, repo):
-    url = f'{API_URL}/repos/{owner}/{repo}'
-    repo_url = f'https://github.com/{owner}/{repo}'
-    response = requests.delete(url, headers=HEADERS)
-    if response.status_code == 204:
-        logging.info(f"Deleted: {repo_url}")
-        print(f"✅ Deleted {repo_url}")
-        return True
-    else:
-        logging.error(f"Failed to delete: {repo_url} ({response.status_code}) {response.text}")
-        print(f"❌ Error deleting {repo_url}: {response.status_code} {response.text}")
-        return False
-
-def load_preserve_list(preserve_path='config/preserve-projects.txt'):
-    try:
-        with open(preserve_path, 'r') as f:
-            preserved = sorted(set(line.strip() for line in f if line.strip()))
-    except FileNotFoundError:
-        preserved = []
-    return preserved
-
-def is_preserved(repo_name, preserved):
-    for pattern in preserved:
-        # Exact match or regex match
-        if pattern == repo_name or re.fullmatch(pattern, repo_name):
-            return True
-    return False
-
-def save_preserve_list(preserved, preserve_path='config/preserve-projects.txt'):
-    preserved_sorted = sorted(set(preserved))
-    with open(preserve_path, 'w') as f:
-        for repo in preserved_sorted:
-            f.write(repo + '\n')
-
-def add_to_preserve_list(repo_name, preserve_path='config/preserve-projects.txt'):
-    preserved = load_preserve_list(preserve_path)
-    if not is_preserved(repo_name, preserved):
-        preserved.append(repo_name)
-        save_preserve_list(preserved, preserve_path)
-
-def main():
+    GITHUB_USERNAME = get_authenticated_username()
     preserve_path = 'config/preserve-projects.txt'
     preserved = load_preserve_list(preserve_path)
     save_preserve_list(preserved, preserve_path)  # Ensure sorted at start
 
-    repos = get_repos()
+    repos = get_repos(GITHUB_USERNAME)
     repo_count = len(repos)
     github_path = f"https://github.com/{GITHUB_USERNAME}"
     logging.info(f"GitHub path: {github_path}")
@@ -121,12 +38,14 @@ def main():
     print(f"🧹 Found {repo_count} repositories for {GITHUB_USERNAME} at {github_path}.")
     print(f"Preserved patterns: {len(preserved)}")
 
-    confirm_all = input("⚠️ This will allow you to delete repositories. Continue? [y/N]: ").strip().lower()
+    confirm_all = input("⚠️ This will allow you to archive, make private, or delete repositories. Continue? [y/N]: ").strip().lower()
     if confirm_all != 'y':
-        logging.info("Aborted by user before deletion.")
+        logging.info("Aborted by user before operation.")
         print("Aborted.")
         return
 
+    archived = []
+    privatized = []
     deleted = []
     skipped = []
     preserved_skipped = []
@@ -151,24 +70,31 @@ def main():
         print(get_readme_snippet(GITHUB_USERNAME, name))
         print("   -------------------")
 
-        confirm = input(f"❓ Delete '{repo_url}'? [y/N/q]: ").strip().lower()
-        if confirm == 'y':
+        print(f"❓ What do you want to do with '{repo_url}'?")
+        print("   [a] Archive   [p] Make Private   [d] Delete   [s] Skip   [q] Quit")
+        choice = input("Your choice [s]: ").strip().lower()
+
+        if choice == 'a':
+            if archive_repo(GITHUB_USERNAME, name):
+                archived.append(name)
+        elif choice == 'p':
+            if make_private_repo(GITHUB_USERNAME, name):
+                privatized.append(name)
+        elif choice == 'd':
             if delete_repo(GITHUB_USERNAME, name):
                 deleted.append(name)
-            else:
-                skipped.append(name)
-        elif confirm == 'q':
-            logging.info("Aborted by user during deletion.")
+        elif choice == 'q':
             print("Aborted by user.")
             break
         else:
-            logging.info(f"Skipped (user): {repo_url}")
             skipped.append(name)
             add_to_preserve_list(name, preserve_path)
 
     # Summary
     summary = (
         f"\n--- Cleanup Summary ---\n"
+        f"Archived repositories: {len(archived)}\n"
+        f"Made private: {len(privatized)}\n"
         f"Deleted repositories: {len(deleted)}\n"
         f"Skipped by user: {len(skipped)}\n"
         f"Skipped (preserved): {len(preserved_skipped)}\n"
@@ -177,6 +103,145 @@ def main():
     )
     print(summary)
     logging.info(summary)
+
+def batch_process_from_csv(csv_path, archive=False, delete=False, make_private=False):
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s %(levelname)s: %(message)s',
+        handlers=[
+            logging.FileHandler(LOG_FILE, encoding='utf-8'),
+            logging.StreamHandler()
+        ]
+    )
+    GITHUB_USERNAME = get_authenticated_username()
+    to_process = []
+    with open(csv_path, newline='', encoding='utf-8') as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            repo_name = row.get('name')
+            if repo_name:
+                to_process.append(repo_name)
+
+    action = "archive" if archive else "make private" if make_private else "delete"
+    print(f"⚠️  About to {action} {len(to_process)} repositories for {GITHUB_USERNAME}.")
+    confirm = input(f"Are you sure? This cannot be undone! [y/N]: ").strip().lower()
+    if confirm != 'y':
+        print("Aborted.")
+        logging.info(f"Batch {action} aborted by user.")
+        return
+
+    archived = []
+    privatized = []
+    deleted = []
+    failed = []
+    for name in to_process:
+        repo_url = f"https://github.com/{GITHUB_USERNAME}/{name}"
+        print(f"{action.capitalize()}ing {repo_url} ...")
+        if archive:
+            if archive_repo(GITHUB_USERNAME, name):
+                archived.append(name)
+            else:
+                failed.append(name)
+        elif make_private:
+            if make_private_repo(GITHUB_USERNAME, name):
+                privatized.append(name)
+            else:
+                failed.append(name)
+        elif delete:
+            if delete_repo(GITHUB_USERNAME, name):
+                deleted.append(name)
+            else:
+                failed.append(name)
+
+    summary = (
+        f"\n--- Batch {action.capitalize()} Summary ---\n"
+        f"Archived: {len(archived)}\n"
+        f"Made private: {len(privatized)}\n"
+        f"Deleted: {len(deleted)}\n"
+        f"Failed: {len(failed)}\n"
+        f"Log file: {LOG_FILE}\n"
+    )
+    print(summary)
+    logging.info(summary)
+
+def process_repos_by_path(paths_or_patterns, archive=True, delete=False, make_private=False):
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s %(levelname)s: %(message)s',
+        handlers=[
+            logging.FileHandler(LOG_FILE, encoding='utf-8'),
+            logging.StreamHandler()
+        ]
+    )
+    GITHUB_USERNAME = get_authenticated_username()
+    all_repos = get_repos(GITHUB_USERNAME)
+    matched = set()
+    for pattern in paths_or_patterns:
+        if pattern.startswith('https://github.com/'):
+            repo_name = pattern.rstrip('/').split('/')[-1]
+            matched.update([repo for repo in all_repos if repo['name'] == repo_name])
+        else:
+            regex = re.compile(pattern)
+            matched.update([repo for repo in all_repos if regex.fullmatch(repo['name'])])
+
+    if not matched:
+        print("No repositories matched.")
+        return
+
+    action = "archive" if archive else "make private" if make_private else "delete"
+    print(f"⚠️  About to {action} {len(matched)} repositories.")
+    confirm = input(f"Are you sure you want to {action} these repositories? [y/N]: ").strip().lower()
+    if confirm != 'y':
+        print("Aborted.")
+        logging.info(f"{action.capitalize()} aborted by user.")
+        return
+
+    for repo in matched:
+        repo_url = repo['html_url']
+        print(f"{action.capitalize()}ing {repo_url} ...")
+        if archive:
+            archive_repo(repo['owner']['login'], repo['name'])
+        elif make_private:
+            make_private_repo(repo['owner']['login'], repo['name'])
+        elif delete:
+            delete_repo(repo['owner']['login'], repo['name'])
+
+def main():
+    parser = argparse.ArgumentParser(description="GitHub Repositories Cleanup Tool")
+    parser.add_argument('--cleanup', action='store_true', help='Archive repositories interactively (default)')
+    parser.add_argument('--delete', action='store_true', help='Delete repositories instead of archiving')
+    parser.add_argument('--archive', action='store_true', help='Force archiving (default behavior)')
+    parser.add_argument('--private', action='store_true', help='Make repositories private')
+    parser.add_argument('--export', metavar='CSV_PATH', help='Export repository list to CSV')
+    parser.add_argument('--batch-archive', metavar='CSV_PATH', help='Archive repositories listed in a CSV file')
+    parser.add_argument('--batch-private', metavar='CSV_PATH', help='Make repositories private from a CSV file')
+    parser.add_argument('--batch-delete', metavar='CSV_PATH', help='Delete repositories listed in a CSV file')
+    parser.add_argument('--repos', nargs='+', metavar='REPO_PATH_OR_PATTERN', help='Archive/delete/private repos by full path or regex pattern')
+    args = parser.parse_args()
+
+    if args.cleanup:
+        cleanup_repos(
+            archive=(not args.delete and not args.private) or args.archive,
+            delete=args.delete,
+            make_private=args.private
+        )
+    if args.export:
+        export_repos_csv(args.export)
+    if args.batch_archive:
+        batch_process_from_csv(args.batch_archive, archive=True)
+    if args.batch_private:
+        batch_process_from_csv(args.batch_private, make_private=True)
+    if args.batch_delete:
+        batch_process_from_csv(args.batch_delete, delete=True)
+    if args.repos:
+        process_repos_by_path(
+            args.repos,
+            archive=(not args.delete and not args.private) or args.archive,
+            delete=args.delete,
+            make_private=args.private
+        )
+    if not (args.cleanup or args.export or args.batch_archive or args.batch_private or args.batch_delete or args.repos):
+        parser.print_help()
 
 if __name__ == '__main__':
     main()

@@ -158,3 +158,85 @@ Skipped (preserved): 2
 Total checked: 325
 Log file: logs\cleanup.log
 
+2025-08-01 20:19:20,717 INFO: Batch deletion aborted by user.
+2025-08-01 20:23:47,048 INFO: 
+--- Batch Deletion Summary ---
+Deleted repositories: 223
+Failed deletions: 0
+Log file: logs/cleanup.log
+
+2025-08-01 20:33:32,550 INFO: GitHub path: https://github.com/nikitakoselev
+2025-08-01 20:33:32,550 INFO: Total repositories found: 3
+2025-08-01 20:33:32,558 INFO: Preserved patterns: 4
+2025-08-01 20:33:42,418 INFO: Skipped (preserved): https://github.com/nikitakoselev/books-to-read
+2025-08-01 20:33:42,418 INFO: Skipped (preserved): https://github.com/nikitakoselev/EarningMoneyInOpenSource
+2025-08-01 20:33:47,952 INFO: Aborted by user during deletion.
+2025-08-01 20:33:47,952 INFO: 
+--- Cleanup Summary ---
+Deleted repositories: 0
+Skipped by user: 0
+Skipped (preserved): 2
+Total checked: 3
+Log file: logs/cleanup.log
+
+2025-08-01 20:45:40,329 INFO: GitHub path: https://github.com/nikitakoselev
+2025-08-01 20:45:40,330 INFO: Total repositories found: 3
+2025-08-01 20:45:40,331 INFO: Preserved patterns: 4
+2025-08-01 20:45:45,309 INFO: Skipped (preserved): https://github.com/nikitakoselev/books-to-read
+2025-08-01 20:45:45,310 INFO: Skipped (preserved): https://github.com/nikitakoselev/EarningMoneyInOpenSource
+2025-08-01 20:45:58,216 INFO: 
+--- Cleanup Summary ---
+Archived repositories: 0
+Made private: 0
+Deleted repositories: 0
+Skipped by user: 1
+Skipped (preserved): 2
+Total checked: 3
+Log file: logs/cleanup.log
+
+2025-08-01 20:48:35,085 INFO: GitHub path: https://github.com/nikitakoselev
+2025-08-01 20:48:35,086 INFO: Total repositories found: 3
+2025-08-01 20:48:35,086 INFO: Preserved patterns: 5
+2025-08-01 20:48:43,726 INFO: Skipped (preserved): https://github.com/nikitakoselev/books-to-read
+2025-08-01 20:48:43,726 INFO: Skipped (preserved): https://github.com/nikitakoselev/EarningMoneyInOpenSource
+2025-08-01 20:48:43,727 INFO: Skipped (preserved): https://github.com/nikitakoselev/OpenSourceFriends
+2025-08-01 20:48:43,728 INFO: 
+--- Cleanup Summary ---
+Archived repositories: 0
+Made private: 0
+Deleted repositories: 0
+Skipped by user: 0
+Skipped (preserved): 3
+Total checked: 3
+Log file: logs/cleanup.log
+
+2025-08-01 20:49:42,204 INFO: GitHub path: https://github.com/nikitakoselev
+2025-08-01 20:49:42,204 INFO: Total repositories found: 3
+2025-08-01 20:49:42,205 INFO: Preserved patterns: 4
+2025-08-01 20:49:51,942 INFO: Skipped (preserved): https://github.com/nikitakoselev/books-to-read
+2025-08-01 20:49:51,943 INFO: Skipped (preserved): https://github.com/nikitakoselev/EarningMoneyInOpenSource
+2025-08-01 20:49:57,659 INFO: 
+--- Cleanup Summary ---
+Archived repositories: 1
+Made private: 0
+Deleted repositories: 0
+Skipped by user: 0
+Skipped (preserved): 2
+Total checked: 3
+Log file: logs/cleanup.log
+
+2025-08-01 21:01:32,294 INFO: GitHub path: https://github.com/nikitakoselev
+2025-08-01 21:01:32,297 INFO: Total repositories found: 3
+2025-08-01 21:01:32,298 INFO: Preserved patterns: 4
+2025-08-01 21:01:35,370 INFO: Skipped (preserved): https://github.com/nikitakoselev/books-to-read
+2025-08-01 21:01:35,377 INFO: Skipped (preserved): https://github.com/nikitakoselev/EarningMoneyInOpenSource
+2025-08-01 21:01:47,446 INFO: 
+--- Cleanup Summary ---
+Archived repositories: 0
+Made private: 0
+Deleted repositories: 0
+Skipped by user: 0
+Skipped (preserved): 2
+Total checked: 3
+Log file: logs/cleanup.log
+
